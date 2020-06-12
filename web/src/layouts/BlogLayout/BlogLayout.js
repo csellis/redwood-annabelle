@@ -1,8 +1,11 @@
+import { useAuth } from '@redwoodjs/auth'
 import { NavLink, routes } from '@redwoodjs/router'
 import { useState } from 'react'
+
 const BlogLayout = ({ children }) => {
   const [toggleOpen, setToggleOpen] = useState(false)
   const [profileOpen, setProfileOpen] = useState(false)
+  const { logIn } = useAuth()
 
   return (
     <>
@@ -30,6 +33,14 @@ const BlogLayout = ({ children }) => {
                   >
                     Contact
                   </NavLink>
+
+                  <a
+                    href="#"
+                    onClick={logIn}
+                    className="inline-flex items-center px-1 pt-1 border-indigo-500 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-indigo-700 transition duration-150 ease-in-out"
+                  >
+                    Log In
+                  </a>
                 </div>
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:items-center">
