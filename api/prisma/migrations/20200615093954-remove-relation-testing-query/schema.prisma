@@ -1,6 +1,6 @@
 datasource DS {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 generator client {
@@ -27,7 +27,6 @@ model Lesson {
   id            Int      @id @default(autoincrement())
   name          String
   prizeId       Int?
-  prize         Prize?   @relation(fields: [prizeId], references: [id])
   dateCompleted DateTime
   createdAt     DateTime @default(now())
 }
@@ -39,5 +38,4 @@ model Prize {
   lessonsNeeded    String
   lessonsCompleted String
   createdAt        DateTime @default(now())
-  lessons          Lesson[]
 }

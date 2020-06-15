@@ -1,0 +1,58 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateField",
+      "model": "Prize",
+      "field": "lessons",
+      "type": "Lesson",
+      "arity": "List"
+    },
+    {
+      "tag": "CreateField",
+      "model": "Lesson",
+      "field": "prize",
+      "type": "Prize",
+      "arity": "Optional"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "Lesson",
+          "field": "prize"
+        },
+        "directive": "relation"
+      }
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Lesson",
+          "field": "prize"
+        },
+        "directive": "relation"
+      },
+      "argument": "fields",
+      "value": "[prizeId]"
+    },
+    {
+      "tag": "CreateArgument",
+      "location": {
+        "tag": "Directive",
+        "path": {
+          "tag": "Field",
+          "model": "Lesson",
+          "field": "prize"
+        },
+        "directive": "relation"
+      },
+      "argument": "references",
+      "value": "[id]"
+    }
+  ]
+}

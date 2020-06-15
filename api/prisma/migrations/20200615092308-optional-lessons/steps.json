@@ -1,0 +1,17 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "UpdateField",
+      "model": "Lesson",
+      "field": "prizeId",
+      "arity": "Optional"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Lesson",
+      "field": "prize",
+      "arity": "Optional"
+    }
+  ]
+}

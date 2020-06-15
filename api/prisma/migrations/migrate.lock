@@ -4,3 +4,6 @@
 20200601175029-create-contact
 20200615061133-prizes---lessons
 20200615072740-add-prize-lesson-relation
+20200615092308-optional-lessons
+20200615093954-remove-relation-testing-query
+20200615095833-prize-lesson-relationship

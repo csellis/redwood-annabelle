@@ -6,6 +6,7 @@ export const schema = gql`
     lessonsNeeded: String!
     lessonsCompleted: String!
     createdAt: DateTime!
+    lessons: Lesson
   }
 
   type Query {
