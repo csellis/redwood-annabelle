@@ -11,7 +11,7 @@ export const schema = gql`
 
   type Query {
     prizes: [Prize!]!
-    prize(id: Int!): Prize!
+    prize(id: Int!): Prize
   }
 
   input CreatePrizeInput {
