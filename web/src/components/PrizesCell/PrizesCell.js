@@ -41,19 +41,25 @@ export const Success = ({ prizes }) => {
           key={prize.id}
         >
           <div className="flex-shrink-0">
-            <img
-              className="h-48 w-full object-cover"
-              src={prize.imageUrl}
-              alt={prize.name}
-            />
+            <Link to={routes.prize({ id: prize.id })} href="#">
+              <img
+                className="h-48 w-full object-cover"
+                src={prize.imageUrl}
+                alt={prize.name}
+              />
+            </Link>
           </div>
           <div className="flex-1 bg-white p-6 flex flex-col justify-between">
             <div className="flex-1">
-              <a href="#" className="block">
+              <Link
+                to={routes.prize({ id: prize.id })}
+                href="#"
+                className="block"
+              >
                 <h3 className="mt-2 text-xl leading-7 font-semibold text-gray-900">
                   {prize.name}
                 </h3>
-              </a>
+              </Link>
             </div>
             <div className="mt-6 flex items-center">
               <div className="ml-3">
@@ -67,6 +73,9 @@ export const Success = ({ prizes }) => {
           </div>
         </div>
       ))}
+      <Link to={routes.newPrize()} className="text-white">
+        {'Create one?'}
+      </Link>
     </div>
   )
 }
