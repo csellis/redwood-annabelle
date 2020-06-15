@@ -1,0 +1,75 @@
+import { useMutation } from '@redwoodjs/web'
+import { Link, routes, navigate } from '@redwoodjs/router'
+
+const DELETE_PRIZE_MUTATION = gql`
+  mutation DeletePrizeMutation($id: Int!) {
+    deletePrize(id: $id) {
+      id
+    }
+  }
+`
+
+const Prize = ({ prize }) => {
+  const [deletePrize] = useMutation(DELETE_PRIZE_MUTATION, {
+    onCompleted: () => {
+      navigate(routes.prizes())
+      location.reload()
+    },
+  })
+
+  const onDeleteClick = (id) => {
+    if (confirm('Are you sure you want to delete prize ' + id + '?')) {
+      deletePrize({ variables: { id } })
+    }
+  }
+
+  return (
+    <>
+      <div className="rw-segment">
+        <header className="rw-segment-header">
+          <h2 className="rw-heading rw-heading-secondary">Prize {prize.id} Detail</h2>
+        </header>
+        <table className="rw-table">
+          <tbody>
+            <tr>
+              <th>id</th>
+              <td>{prize.id}</td>
+            </tr><tr>
+              <th>name</th>
+              <td>{prize.name}</td>
+            </tr><tr>
+              <th>imageUrl</th>
+              <td>{prize.imageUrl}</td>
+            </tr><tr>
+              <th>lessonsNeeded</th>
+              <td>{prize.lessonsNeeded}</td>
+            </tr><tr>
+              <th>lessonsCompleted</th>
+              <td>{prize.lessonsCompleted}</td>
+            </tr><tr>
+              <th>createdAt</th>
+              <td>{prize.createdAt}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <nav className="rw-button-group">
+        <Link
+          to={routes.editPrize({ id: prize.id })}
+          className="rw-button rw-button-blue"
+        >
+          Edit
+        </Link>
+        <a
+          href="#"
+          className="rw-button rw-button-red"
+          onClick={() => onDeleteClick(prize.id)}
+        >
+          Delete
+        </a>
+      </nav>
+    </>
+  )
+}
+
+export default Prize
