@@ -7,5 +7,9 @@
   },
   "[prisma]": {
     "editor.formatOnSave": true
+  },
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#12b672",
+    "titleBar.inactiveBackground": "#12b672CC"
   }
 }

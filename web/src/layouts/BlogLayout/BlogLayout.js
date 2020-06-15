@@ -5,7 +5,7 @@ import { useState } from 'react'
 const BlogLayout = ({ children }) => {
   const [toggleOpen, setToggleOpen] = useState(false)
   const [profileOpen, setProfileOpen] = useState(false)
-  const { logIn } = useAuth()
+  const { logIn, logOut, isAuthenticated, currentUser } = useAuth()
 
   return (
     <>
@@ -33,14 +33,6 @@ const BlogLayout = ({ children }) => {
                   >
                     Contact
                   </NavLink>
-
-                  <a
-                    href="#"
-                    onClick={logIn}
-                    className="inline-flex items-center px-1 pt-1 border-indigo-500 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-indigo-700 transition duration-150 ease-in-out"
-                  >
-                    Log In
-                  </a>
                 </div>
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:items-center">
@@ -48,17 +40,15 @@ const BlogLayout = ({ children }) => {
                 <div className="ml-3 relative">
                   <div>
                     <button
-                      className="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out"
+                      className="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out p4"
                       id="user-menu"
                       aria-label="User menu"
                       aria-haspopup="true"
                       onClick={() => setProfileOpen(!profileOpen)}
                     >
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
-                      />
+                      <span className="inline-flex items-center px-1 pt-1 border-indigo-500 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-indigo-700 transition duration-150 ease-in-out">
+                        {isAuthenticated ? `${currentUser.email} ▾` : `Menu ☰`}
+                      </span>
                     </button>
                   </div>
                   {/* <!--
@@ -98,10 +88,11 @@ const BlogLayout = ({ children }) => {
                       </a>
                       <a
                         href="#"
+                        onClick={isAuthenticated ? logOut : logIn}
                         className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                         role="menuitem"
                       >
-                        Sign out
+                        {isAuthenticated ? 'Log Out' : 'Log In'}
                       </a>
                     </div>
                   </div>
@@ -149,10 +140,10 @@ const BlogLayout = ({ children }) => {
           </div>
 
           {/* <!--
-    Mobile menu, toggle classes based on menu state.
+        Mobile menu, toggle classes based on menu state.
 
-    Menu open: "block", Menu closed: "hidden"
-  --> */}
+        Menu open: "block", Menu closed: "hidden"
+      --> */}
           <div className={`${toggleOpen ? 'block' : 'hidden'} sm:hidden`}>
             <div className="pt-2 pb-3">
               <a
@@ -165,60 +156,52 @@ const BlogLayout = ({ children }) => {
                 href="#"
                 className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
               >
-                Team
-              </a>
-              <a
-                href="#"
-                className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
-              >
-                Projects
-              </a>
-              <a
-                href="#"
-                className="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
-              >
                 Calendar
               </a>
             </div>
-            <div className="pt-4 pb-3 border-t border-gray-200">
-              <div className="flex items-center px-4">
-                <div className="flex-shrink-0">
-                  <img
-                    className="h-10 w-10 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                  />
-                </div>
-                <div className="ml-3">
-                  <div className="text-base font-medium leading-6 text-gray-800">
-                    Tom Cook
-                  </div>
-                  <div className="text-sm font-medium leading-5 text-gray-500">
-                    tom@example.com
+
+            {isAuthenticated ? (
+              <div className="pt-4 pb-3 border-t border-gray-200">
+                <div className="flex items-center">
+                  <div className="ml-3">
+                    <div className="text-sm font-bold leading-5 text-gray-500">
+                      {currentUser.email}
+                    </div>
                   </div>
                 </div>
+                <div className="mt-3">
+                  <a
+                    href="#"
+                    className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out"
+                  >
+                    Your Profile
+                  </a>
+                  <a
+                    href="#"
+                    className="mt-1 block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out"
+                  >
+                    Settings
+                  </a>
+                  <a
+                    onClick={isAuthenticated ? logOut : logIn}
+                    className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out"
+                    href="#"
+                  >
+                    {isAuthenticated ? 'Log Out' : 'Log In'}
+                  </a>
+                </div>
               </div>
-              <div className="mt-3">
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out"
-                >
-                  Your Profile
-                </a>
-                <a
-                  href="#"
-                  className="mt-1 block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out"
-                >
-                  Settings
-                </a>
-                <a
-                  href="#"
-                  className="mt-1 block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out"
-                >
-                  Sign out
-                </a>
-              </div>
-            </div>
+            ) : (
+                <div className="mt-3">
+                  <a
+                    onClick={isAuthenticated ? logOut : logIn}
+                    className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out"
+                    href="#"
+                  >
+                    {isAuthenticated ? 'Log Out' : 'Log In'}
+                  </a>
+                </div>
+              )}
           </div>
         </nav>
       </header>
