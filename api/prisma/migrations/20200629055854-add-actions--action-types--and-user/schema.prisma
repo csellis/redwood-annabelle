@@ -1,6 +1,6 @@
 datasource DS {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 generator client {
@@ -37,7 +37,7 @@ model ActionType {
   id          Int      @id @default(autoincrement())
   title       String
   description String
-  actions     Action[]
+  action      Action[]
   createdAt   DateTime @default(now())
 }
 

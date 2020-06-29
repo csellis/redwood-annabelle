@@ -1,6 +1,6 @@
 datasource DS {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 generator client {
@@ -27,6 +27,17 @@ model Prize {
   lessons          Lesson[]
 }
 
+model Action {
+  id         String     @id @default(uuid())
+  actionType ActionType @relation(fields: [actionId], references: [id])
+  actionId   Int
+  date       DateTime
+  createdAt  DateTime   @default(now())
+  notes      String
+  User       User?      @relation(fields: [userId], references: [id])
+  userId     String?
+}
+
 model User {
   id      String   @id @default(uuid())
   name    String
@@ -39,15 +50,4 @@ model ActionType {
   description String
   actions     Action[]
   createdAt   DateTime @default(now())
-}
-
-model Action {
-  id         String     @id @default(uuid())
-  actionType ActionType @relation(fields: [actionId], references: [id])
-  actionId   Int
-  date       DateTime
-  createdAt  DateTime   @default(now())
-  notes      String
-  User       User?      @relation(fields: [userId], references: [id])
-  userId     String?
 }
