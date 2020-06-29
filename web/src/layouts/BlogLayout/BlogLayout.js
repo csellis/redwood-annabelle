@@ -1,6 +1,7 @@
 import { useAuth } from '@redwoodjs/auth'
 import { NavLink, routes } from '@redwoodjs/router'
 import { useState } from 'react'
+import BottomNav from 'src/components/BottomNav'
 
 const BlogLayout = ({ children }) => {
   const [toggleOpen, setToggleOpen] = useState(false)
@@ -15,7 +16,7 @@ const BlogLayout = ({ children }) => {
             <div className="flex justify-between h-16">
               <div className="flex">
                 <div className="flex-shrink-0 flex items-center">
-                  <NavLink to={routes.home()}>Annabelle Learns</NavLink>
+                  <NavLink to={routes.home()}>🤴 Lawn King</NavLink>
                 </div>
                 <div className="hidden sm:ml-6 sm:flex">
                   <NavLink
@@ -208,6 +209,7 @@ const BlogLayout = ({ children }) => {
       <div className="max-w-7xl mx-auto px-4 pt-6 sm:px-6 lg:px-8">
         <main>{children}</main>
       </div>
+      <BottomNav />
     </>
   )
 }

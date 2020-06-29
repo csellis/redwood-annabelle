@@ -1,11 +1,10 @@
 import BlogLayout from 'src/layouts/BlogLayout'
-import BlogPostsCell from 'src/components/BlogPostsCell'
-import PrizesCell from 'src/components/PrizesCell'
+import ActionsCell from 'src/components/ActionsCell'
 
 const HomePage = () => {
   return (
     <BlogLayout>
-      <PrizesCell />
+      <ActionsCell />
     </BlogLayout>
   )
 }
